@@ -2,7 +2,7 @@
 
 A simple TCP chat application for the terminal
 
-![Uploading 6b7eefe4c5ea4da79cf713db1ab67163.gif…]()
+![Demo GIF](showcase.gif)
 
 
 ## Build
