@@ -13,6 +13,7 @@ use std::{
 use clap::{Parser, Subcommand, arg, command};
 use colored::Colorize;
 use crossterm::{
+    cursor,
     event::{self, Event as TermEvent, KeyCode, KeyEvent, KeyModifiers},
     terminal::{disable_raw_mode, enable_raw_mode, Clear, ClearType},
     execute,
@@ -109,26 +110,42 @@ fn run_event_loop(name: String, mut stream: TcpStream, recv: mpsc::Receiver<Even
 /// Listen on addr:port, accept first connection
 /// and return the TcpStream
 fn start(addr: String, port: u16) -> TcpStream {
-    print!("\r");
+    let mut stdout = std::io::stdout();
+
+    // Clear screen and move cursor to top-left
+    execute!(stdout, Clear(ClearType::All), cursor::MoveTo(0, 0))
+        .expect("failed to clear screen");
+
+    println!("🚀 Starting chat server...");
     println!("listening on {}:{}", addr, port);
 
     let listener = TcpListener::bind((addr, port)).expect("failed to bind to address");
 
     let (stream, client_addr) = listener.accept().expect("failed to accept connection");
-    print!("\r");
-    println!("client connected from {}", client_addr);
+
+    println!("✓ client connected from {}", client_addr);
+    println!("\nChat started! Type your messages and press Enter to send.");
+    println!("Type 'exit' or press Ctrl+C to quit.\n");
 
     stream
 }
 
 /// Connect to addr:port and return the TcpStream
 fn connect(addr: String, port: u16) -> TcpStream {
-    print!("\r");
+    let mut stdout = std::io::stdout();
+
+    // Clear screen and move cursor to top-left
+    execute!(stdout, Clear(ClearType::All), cursor::MoveTo(0, 0))
+        .expect("failed to clear screen");
+
+    println!("🚀 Connecting to chat server...");
     println!("connecting to {}:{}", addr, port);
 
     let stream = TcpStream::connect((addr.clone(), port)).expect("failed to connect to server");
-    print!("\r");
-    println!("connected to server at {}:{}", &addr, port);
+
+    println!("✓ connected to server at {}:{}", &addr, port);
+    println!("\nChat started! Type your messages and press Enter to send.");
+    println!("Type 'exit' or press Ctrl+C to quit.\n");
 
     stream
 }
