@@ -1,2 +1,12 @@
+# Rust build artifacts
 /target/
+
+# macOS files
 .DS_Store
+
+# TLS certificates (auto-generated)
+*.pem
+
+# Demo recordings
+*.cast
+*.gif

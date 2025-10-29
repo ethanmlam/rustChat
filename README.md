@@ -2,7 +2,7 @@
 
 A simple TCP chat application for the terminal
 
-![Demo](rust-chat-demo.gif)
+![Demo](showcase.gif)
 
 ## Build
 
@@ -28,8 +28,11 @@ Type messages and press Enter. Type `exit` to quit.
 
 - Color-coded usernames
 - Timestamps on messages
-- Real-time TCP communication
+- Real-time TLS-encrypted communication
 - Raw terminal mode for clean input
+- Self-signed certificate generation
+- Private and secure peer-to-peer chat
 
-## Todo
-- TLS for privacy
+## Security
+
+All communications are encrypted using TLS 1.3. On first run, the server automatically generates a self-signed certificate (`server-cert.pem` and `server-key.pem`) for encryption. While these self-signed certificates provide strong encryption, they are not verified by a certificate authority - this is perfect for private, peer-to-peer chat between trusted parties.
