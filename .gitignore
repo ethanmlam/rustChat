@@ -10,3 +10,4 @@
 # Demo recordings
 *.cast
 *.gif
+!showcase.gif
